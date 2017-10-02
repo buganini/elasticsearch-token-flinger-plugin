@@ -1,7 +1,13 @@
 from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
-def ptoken(r):
+def ptoken(text):
+    r = es.indices.analyze(
+        index=index_name,
+        body={
+            "text": text
+        },
+    )
     print(" ".join([t["token"] for t in r["tokens"]]))
 
 index_name = "token-flinger"
@@ -32,10 +38,5 @@ es.indices.create(
         }
     }
 )
-r = es.indices.analyze(
-    index=index_name,
-    body={
-        "text": "test abc5566"
-    },
-)
-ptoken(r)
+ptoken("test abc5566")
+ptoken("test abc5566 Citroën")
