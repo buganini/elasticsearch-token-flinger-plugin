@@ -6,8 +6,6 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 
 import java.io.IOException;
-import java.nio.CharBuffer;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TokenFlinger extends TokenFilter {
@@ -17,7 +15,6 @@ public class TokenFlinger extends TokenFilter {
 
         public int unspecificMinGram;
         public int unspecificMaxGram;
-
     }
 
     private char[] curTermBuffer;
@@ -27,6 +24,8 @@ public class TokenFlinger extends TokenFilter {
     private int curPos;
     private int curPosInc;
     private State state;
+    private int minGram;
+    private int maxGram;
 
     private final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     private final PositionIncrementAttribute posIncAtt;
@@ -53,7 +52,6 @@ public class TokenFlinger extends TokenFilter {
                     curTermBuffer = termAtt.buffer().clone();
                     curTermLength = termAtt.length();
                     curCodePointCount = Character.codePointCount(termAtt, 0, termAtt.length());
-                    curGramSize = config.unspecificMinGram;
                     curPos = 0;
                     curPosInc = posIncAtt.getPositionIncrement();
                     state = captureState();
@@ -75,16 +73,23 @@ public class TokenFlinger extends TokenFilter {
                         }
                     };
 
+                    // Unchanged
                     if(asciiOnly.matcher(cs).matches()){
                         curTermBuffer = null;
                         return true;
                     }
+
+                    // N-Gram
+                    minGram = config.unspecificMinGram;
+                    maxGram = config.unspecificMaxGram;
+
+                    curGramSize = minGram;
                 }
             }
 
-            if (curGramSize > config.unspecificMaxGram || (curPos + curGramSize) > curCodePointCount) {
+            if (curGramSize > maxGram || (curPos + curGramSize) > curCodePointCount) {
                 ++curPos;
-                curGramSize = config.unspecificMinGram;
+                curGramSize = minGram;
             }
             if ((curPos + curGramSize) <= curCodePointCount) {
                 restoreState(state);
