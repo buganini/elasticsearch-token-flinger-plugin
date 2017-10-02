@@ -40,7 +40,7 @@ public class TokenFlinger extends TokenFilter {
         posIncAtt = addAttribute(PositionIncrementAttribute.class);
     }
 
-    private Pattern asciiOnly = Pattern.compile("^[A-Za-z]+$");
+    private Pattern latinOnly = Pattern.compile("^\\p{Script=Latin}+$");
 
     @Override
     public boolean incrementToken() throws IOException {
@@ -74,7 +74,7 @@ public class TokenFlinger extends TokenFilter {
                     };
 
                     // Unchanged
-                    if(asciiOnly.matcher(cs).matches()){
+                    if(latinOnly.matcher(cs).matches()){
                         curTermBuffer = null;
                         return true;
                     }
