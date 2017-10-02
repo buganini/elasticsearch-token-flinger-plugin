@@ -8,7 +8,10 @@ def ptoken(text):
             "text": text
         },
     )
-    print(" ".join([t["token"] for t in r["tokens"]]))
+    print("{} => {}".format(
+        text,
+        " ".join([t["token"] for t in r["tokens"]])
+    ))
 
 index_name = "token-flinger"
 
@@ -39,4 +42,4 @@ es.indices.create(
     }
 )
 ptoken("test abc5566")
-ptoken("test abc5566 Citroën")
+ptoken("abc123 Citroën")
