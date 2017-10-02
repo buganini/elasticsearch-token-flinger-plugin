@@ -40,7 +40,7 @@ public class TokenFlinger extends TokenFilter {
         posIncAtt = addAttribute(PositionIncrementAttribute.class);
     }
 
-    private Pattern latinOnly = Pattern.compile("^\\p{Script=Latin}+$");
+    private Pattern latinOnly = Pattern.compile("^(\\p{Script=Latin}|\\p{InCombiningDiacriticalMarks})+$");
 
     @Override
     public boolean incrementToken() throws IOException {

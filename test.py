@@ -42,4 +42,5 @@ es.indices.create(
     }
 )
 ptoken("test abc5566")
-ptoken("abc123 Citroën")
+ptoken("abc123 Citroën (NFC)")
+ptoken("abc123 Citroe\u0308n (NFD)")
