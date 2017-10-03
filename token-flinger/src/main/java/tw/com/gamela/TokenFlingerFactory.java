@@ -12,6 +12,9 @@ public class TokenFlingerFactory extends AbstractTokenFilterFactory {
     public TokenFlingerFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
         super(indexSettings, name, settings);
 
+        config.cjkMinGram = settings.getAsInt("cjk_min_gram", TokenFlinger.Config.DEFAULT_CJK_MIN_NGRAM_SIZE);
+        config.cjkMaxGram = settings.getAsInt("cjk_max_gram", TokenFlinger.Config.DEFAULT_CJK_MAX_NGRAM_SIZE);
+
         config.unspecificMinGram = settings.getAsInt("unspecific_min_gram", TokenFlinger.Config.DEFAULT_UNSPECIFIC_MIN_NGRAM_SIZE);
         config.unspecificMaxGram = settings.getAsInt("unspecific_max_gram", TokenFlinger.Config.DEFAULT_UNSPECIFIC_MAX_NGRAM_SIZE);
     }

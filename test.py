@@ -24,7 +24,7 @@ es.indices.create(
             "analysis" : {
                 "analyzer" : {
                     "default" : {
-                        "tokenizer" : "standard",
+                        "tokenizer" : "icu_tokenizer",
                         "filter" : [
                             "token_flinger_with_params"
                         ]
@@ -33,6 +33,8 @@ es.indices.create(
                 "filter": {
                     "token_flinger_with_params": {
                         "type": "token_flinger",
+                        "ideographic_min_gram": 1,
+                        "ideographic_max_gram": 3,
                         "unspecific_min_gram": 3,
                         "unspecific_max_gram": 5
                     }
@@ -44,3 +46,4 @@ es.indices.create(
 ptoken("test abc5566")
 ptoken("abc123 Citroën (NFC)")
 ptoken("abc123 Citroe\u0308n (NFD)")
+ptoken("test中文測試初めまして한글")

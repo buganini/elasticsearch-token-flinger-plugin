@@ -10,9 +10,13 @@ import java.util.regex.Pattern;
 
 public class TokenFlinger extends TokenFilter {
     public static class Config {
+        public final static int DEFAULT_CJK_MIN_NGRAM_SIZE = 1;
+        public final static int DEFAULT_CJK_MAX_NGRAM_SIZE = 3;
         public final static int DEFAULT_UNSPECIFIC_MIN_NGRAM_SIZE = 3;
         public final static int DEFAULT_UNSPECIFIC_MAX_NGRAM_SIZE = 7;
 
+        public int cjkMinGram;
+        public int cjkMaxGram;
         public int unspecificMinGram;
         public int unspecificMaxGram;
     }
@@ -40,7 +44,8 @@ public class TokenFlinger extends TokenFilter {
         posIncAtt = addAttribute(PositionIncrementAttribute.class);
     }
 
-    private Pattern latinOnly = Pattern.compile("^(\\p{Script=Latin}|\\p{InCombiningDiacriticalMarks})+$");
+    private Pattern latinOnly = Pattern.compile("^(?:\\p{Script=Latin}|\\p{InCombiningDiacriticalMarks})+$");
+    private Pattern cjkOnly = Pattern.compile("^(?:\\p{Script=Han}|\\p{IsHiragana}|\\p{IsKatakana}|\\p{IsHangul})+$");
 
     @Override
     public boolean incrementToken() throws IOException {
@@ -80,15 +85,20 @@ public class TokenFlinger extends TokenFilter {
                     }
 
                     // N-Gram
-                    minGram = config.unspecificMinGram;
-                    maxGram = config.unspecificMaxGram;
+                    if(cjkOnly.matcher(cs).matches()){
+                        minGram = config.cjkMinGram;
+                        maxGram = config.cjkMaxGram;
+                    }else{
+                        minGram = config.unspecificMinGram;
+                        maxGram = config.unspecificMaxGram;
+                    }
 
-                    curGramSize = minGram;
-
-                    if (curTermLength  <= minGram) {
+                    if (curTermLength <= minGram) {
                         curTermBuffer = null;
                         return true;
                     }
+
+                    curGramSize = minGram;
                 }
             }
 
