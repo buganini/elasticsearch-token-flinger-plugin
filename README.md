@@ -8,7 +8,7 @@ Latin | Unchanged
 Other | NGram
 
 
-## Example (with icu_tokenizer)
+## Example (test.py)
 
 Input | Output
 ------|-------
