@@ -5,6 +5,7 @@ Token-Flinger try to identify the type of token then apply proper filter on it.
 Type | Filter
 -----|-------
 Latin | Unchanged
+CJK | NGram
 Other | NGram
 
 
