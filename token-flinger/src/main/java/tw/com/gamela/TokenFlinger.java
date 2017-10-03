@@ -84,6 +84,11 @@ public class TokenFlinger extends TokenFilter {
                     maxGram = config.unspecificMaxGram;
 
                     curGramSize = minGram;
+
+                    if (curTermLength  <= minGram) {
+                        curTermBuffer = null;
+                        return true;
+                    }
                 }
             }
 
