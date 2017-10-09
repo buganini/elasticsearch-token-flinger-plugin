@@ -23,7 +23,7 @@ test阿茲海默症初めまして한글 | test 阿茲 阿茲海 茲海 茲海�
 ```
 cd token-flinger
 gradle assemble
-sudo bin/elasticsearch-plugin install file://`readlink -f build/distributions/token-flinger-1.1.zip`
+sudo bin/elasticsearch-plugin install file://`readlink -f build/distributions/token-flinger-${VERSION}.zip`
 ```
 
 -----------------------------

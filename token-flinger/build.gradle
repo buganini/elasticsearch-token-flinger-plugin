@@ -29,7 +29,7 @@ noticeFile = rootProject.file('NOTICE.txt')
 
 esplugin {
     name 'token-flinger'
-    description 'Add support for emoji in Elasticsearch'
+    description 'A smart elasticsearch token filter plugin'
     classname 'org.elasticsearch.plugin.analysis.tokenflinger.TokenFlingerPlugin'
     licenseFile rootProject.file('LICENSE.txt')
     noticeFile rootProject.file('NOTICE.txt')
