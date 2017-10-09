@@ -13,7 +13,7 @@ buildscript {
 }
 
 group = 'org.elasticsearch.plugin'
-version '1.0'
+version '1.1'
 
 apply plugin: 'java'
 apply plugin: 'elasticsearch.esplugin'
