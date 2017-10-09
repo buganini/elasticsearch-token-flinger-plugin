@@ -18,5 +18,13 @@ abc123 Citroën (NFC) | abc abc1 abc12 bc1 bc12 bc123 c12 c123 123 Citroën NFC
 abc123 Citroën (NFD) | abc abc1 abc12 bc1 bc12 bc123 c12 c123 123 Citroën NFD
 test阿茲海默症初めまして한글 | test 阿茲 阿茲海 茲海 茲海默 海默 海默症 默症 初め まし まして して 한글
 
+## Compilation & Installation
+
+```
+cd token-flinger
+gradle assemble
+sudo bin/elasticsearch-plugin install file://`readlink -f build/distributions/token-flinger-1.1.zip`
+```
+
 -----------------------------
 This project is sponsored by [Gamela Enterprise Co., Ltd.](https://www.gamela.com.tw)
